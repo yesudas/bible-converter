@@ -27,11 +27,11 @@ public class BibleConverter {
 
 		switch (outputFormat.toUpperCase()) {
 		case Constants.FORMAT_TEXTFILES:
-			TextFiles.createTextFiles(false);
+			TextFiles.createTextFilesByDirectory();
 			break;
 
 		case Constants.FORMAT_TEXTFILES_BY_DIRECTORY:
-			TextFiles.createTextFiles(true);
+			TextFiles.createTextFilesByDirectory();
 			break;
 
 		case Constants.FORMAT_JSON:
@@ -75,8 +75,7 @@ public class BibleConverter {
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
 				"\n[BIBLE-INFORMATION-FILE-PATH] is optional, if not given program will consider english book names");
-		System.out.println(
-				"\nExample 1: java -jar bible-coverter.jar TextFiles C:/taOV.ont C:/taOV-information.ini");
+		System.out.println("\nExample 1: java -jar bible-coverter.jar TextFiles C:/taOV.ont C:/taOV-information.ini");
 		System.out.println(
 				"\nExample 2: java -jar bible-coverter.jar TextFilesByDirectory C:/taOV.ont C:/taOV-information.ini");
 	}

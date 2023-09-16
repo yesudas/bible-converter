@@ -20,16 +20,18 @@ import in.wordofgod.bible.parser.vosgson.Verse;
  */
 public class TextFiles {
 
-	public static void createTextFiles(boolean createByDirectory) {
-		if (createByDirectory) {
-			System.out.println("TextFilesByDirectory Creation Started...");
-		} else {
-			System.out.println("TextFiles Creation Started...");
-		}
+	public static void createTextFilesByDirectory() {
+		System.out.println("TextFilesByDirectory Creation Started...");
 		File file = new File(BibleConverter.bibleSourcePath);
 
 		System.out.println("TheWord Bible loading started...");
-		Bible bible = TheWord.getBible(file.getAbsolutePath(), BibleConverter.bibleInformationPath);
+		Bible bible;
+		try {
+			bible = TheWord.getBible(file.getAbsolutePath(), BibleConverter.bibleInformationPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 		if (bible != null) {
 			System.out.println("TheWord Bible loaded successfully...");
 		}
