@@ -30,8 +30,16 @@ public class BibleConverter {
 			TextFiles.createTextFilesByDirectory();
 			break;
 
+		case Constants.FORMAT_SINGLE_TEXTFILE:
+			TextFiles.createSingleTextFile();
+			break;
+
 		case Constants.FORMAT_TEXTFILES_BY_DIRECTORY:
 			TextFiles.createTextFilesByDirectory();
+			break;
+
+		case Constants.FORMAT_THEWORDWITHOUTHTMLTAGS:
+			TextFiles.createTheWordModuleWithoutHtmlTags();
 			break;
 
 		case Constants.FORMAT_JSON:
@@ -70,7 +78,8 @@ public class BibleConverter {
 
 	public static void printHelpMessage() {
 		System.out.println("\nHelp on Usage of this program:");
-		System.out.println("\nSupported formats:\n\t1. TextFiles\n\t2.TextFilesByDirectory\n\t3.JSON");
+		System.out.println(
+				"\nSupported formats:\n\t1. TextFiles\n\t2.TextFilesByDirectory\n\t3.JSON\n\t4. SingleTextFile\n\t4.TheWordWithoutHtmlTags");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
