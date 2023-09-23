@@ -122,7 +122,8 @@ public class TextFiles {
 		StringBuilder sb = new StringBuilder();
 		for (Book book : bible.getBooks()) {
 			for (Chapter chapter : book.getChapters()) {
-				sb.append(book.getLongName()).append(" ").append(chapter.getChapter()).append("\n");
+				String chapterHeading = capitalizeFirstLetter(book.getLongName());
+				sb.append(chapterHeading).append(" ").append(chapter.getChapter()).append("\n");
 				StringBuilder verses = new StringBuilder();
 				for (Verse verse : chapter.getVerses()) {
 					String verseText = removeHTMLTags(verse.getText());
@@ -171,4 +172,12 @@ public class TextFiles {
 
 	}
 
+	public static String capitalizeFirstLetter(String str) {
+
+		if (str == null || str.length() == 0)
+			return str;
+
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
+
+	}
 }
