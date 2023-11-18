@@ -79,7 +79,7 @@ public class BibleConverter {
 	public static void printHelpMessage() {
 		System.out.println("\nHelp on Usage of this program:");
 		System.out.println(
-				"\nSupported formats:\n\t1. TextFiles\n\t2.TextFilesByDirectory\n\t3.JSON\n\t4. SingleTextFile\n\t4.TheWordWithoutHtmlTags");
+				"\nSupported formats:\n\t1. TextFiles\n\t2.TextFilesByDirectory\n\t3.JSON\n\t4. SingleTextFile\n\t5.TheWordWithoutHtmlTags");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(

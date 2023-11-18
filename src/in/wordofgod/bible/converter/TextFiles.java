@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import in.wordofgod.bible.parser.Bible;
 import in.wordofgod.bible.parser.TheWord;
@@ -20,8 +19,6 @@ import in.wordofgod.bible.parser.vosgson.Verse;
  * 
  */
 public class TextFiles {
-
-	private static ArrayList<String> result = new ArrayList<String>();
 
 	public static void createTextFilesByDirectory() {
 		System.out.println("TextFilesByDirectory Creation Started...");

@@ -31,6 +31,8 @@ java -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBL
 1. TextFiles
 2. TextFilesByDirectory
 3. JSON
+4. SingleTextFile
+5. TheWordWithoutHtmlTags
 
 # Where to get Bible Databases?
 1. Download the Bible Databases along with *-information.ini files from [https://github.com/yesudas/all-bible-databases/tree/main/Bibles/TheWord-Bible-Databases/Tamil](https://github.com/yesudas/all-bible-databases/tree/main/Bibles/TheWord-Bible-Databases/Tamil)
