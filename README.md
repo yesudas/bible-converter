@@ -14,7 +14,7 @@ java -jar bible-coverter.jar
 
 on the command line for usage information.
 
-# Steps to use parallel-bible-creator.jar
+# Steps to use bible-coverter.jar
 1. Download & Install JRE or Java from https://www.oracle.com/in/java/technologies/downloads/
 2. Open your command prompt or Terminal and use the below syntax to run the program.
 3. Syntax to run this program:

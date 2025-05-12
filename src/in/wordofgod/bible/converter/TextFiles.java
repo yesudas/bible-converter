@@ -44,7 +44,7 @@ public class TextFiles {
 				StringBuilder verses = new StringBuilder();
 				for (Verse verse : chapter.getVerses()) {
 					String verseText = removeHTMLTags(verse.getText());
-					verses.append(verse.getNumber() + ". " + verseText);
+					verses.append(verse.getNumber() + ". " + verseText).append("\n");
 				}
 				createFile(filePath, verses.toString());
 			}
