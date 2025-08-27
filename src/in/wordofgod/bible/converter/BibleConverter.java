@@ -43,7 +43,7 @@ public class BibleConverter {
 			break;
 
 		case Constants.FORMAT_JSON:
-
+			Json.createJson();
 			break;
 
 		default:

@@ -6,6 +6,9 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/bible-parser.jar"/>
+	<classpathentry kind="lib" path="libs/bible-parser.jar" sourcepath="/wog-bible-parser"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.19.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.19.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.19.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
