@@ -17,6 +17,8 @@
             <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-core-2.19.2.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-annotations-2.19.2.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-databind-2.19.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/antlr-runtime-3.4.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jsoup-1.21.2.jar"/>
         </jar>
     </target>
 </project>
