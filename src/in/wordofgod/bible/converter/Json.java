@@ -5,12 +5,12 @@ package in.wordofgod.bible.converter;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import in.wordofgod.bible.parser.Bible;
 import in.wordofgod.bible.parser.TheWord;
@@ -23,7 +23,7 @@ import in.wordofgod.bible.parser.vosgson.Verse;
  */
 public class Json {
 
-	public static void createJson() {
+	public static void createJson() throws URISyntaxException {
 		System.out.println("Json Creation Started...");
 		File file = new File(BibleConverter.bibleSourcePath);
 
@@ -38,6 +38,8 @@ public class Json {
 		if (bible != null) {
 			System.out.println("TheWord Bible loaded successfully...");
 		}
+		
+		Utils.setOutputFolder(bible.getLanguageCode());
 
 		BibleInfoJson info = new BibleInfoJson();
 		info.abbr = bible.getAbbr();
@@ -54,7 +56,7 @@ public class Json {
 
 		List<BookJson> booksJson = new ArrayList<>();
 
-		BibleJson bible1 = new BibleJson(1, true, info, booksJson);
+		BibleJson bible1 = new BibleJson(1, false, info, booksJson);
 		BiblesJson biblesJson = new BiblesJson(Arrays.asList(bible1));
 
 		for (Book book : bible.getBooks()) {
@@ -62,15 +64,27 @@ public class Json {
 					book.getChapters().size()));
 			String bookDir = book.getBookNo() + "-" + book.getLongName();
 			createDir(bookDir);
+			int chapterCount = 1;
 			for (Chapter chapter : book.getChapters()) {
+				if(chapter.getChapter()==null || chapter.getChapter().isEmpty()) {
+					System.out.println("Invalid chapter in " + book.getLongName() + " Chapter number: " + chapterCount);
+					chapter.setChapter("" + chapterCount);
+				}
 				List<VerseJson> verses = new ArrayList<>();
 				for (Verse verse : chapter.getVerses()) {
-					verses.add(new VerseJson(Integer.valueOf(verse.getNumber()), removeHTMLTags(verse.getText())));
+					verses.add(new VerseJson(Integer.valueOf(verse.getNumber()), verse.getUnParsedText()));
 				}
 				String filePath = bookDir + "/" + chapter.getChapter() + ".json";
-				ChapterJson chap = new ChapterJson(bible.getAbbr(), book.getLongName(), book.getEnglishName(),
-						Integer.valueOf(chapter.getChapter()), verses);
-				createFile(filePath, chap);
+				try {
+					ChapterJson chap = new ChapterJson(bible.getAbbr(), book.getLongName(), book.getEnglishName(),
+							Integer.valueOf(chapter.getChapter()), verses);
+					createFile(filePath, chap);
+				} catch (NumberFormatException e) {
+					System.out.println(
+							"Error creating JSON for " + book.getLongName() + " Chapter " + chapter.getChapter() + " : File Path: "+ filePath);
+					e.printStackTrace();
+					throw e;
+				}
 			}
 		}
 
@@ -94,7 +108,7 @@ public class Json {
 	private static void createFile(String filePath, ChapterJson chapter) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT); // Pretty print
+			// Removed pretty print for smaller file size
 			mapper.writeValue(new File(BibleConverter.outputPath + "/" + filePath), chapter);
 			System.out.println("Created the file: " + filePath);
 		} catch (IOException e) {
@@ -105,7 +119,7 @@ public class Json {
 	private static void createBibleInfoFile(String filePath, BiblesJson biblesJson) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT); // Pretty print
+			// Removed pretty print for smaller file size
 			mapper.writeValue(new File(filePath), biblesJson);
 			System.out.println("Created the file: " + filePath);
 		} catch (IOException e) {

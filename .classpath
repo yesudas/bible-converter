@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="libs/jackson-core-2.19.2.jar"/>
 	<classpathentry kind="lib" path="libs/jackson-annotations-2.19.2.jar"/>
 	<classpathentry kind="lib" path="libs/jackson-databind-2.19.2.jar"/>
+	<classpathentry kind="lib" path="libs/antlr-runtime-3.4.jar"/>
+	<classpathentry kind="lib" path="libs/jsoup-1.21.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,7 +4,7 @@
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
     <property name="dir.buildfile" value="."/>
-    <property name="dir.workspace" value="D:/Softwares/eclipse-workspace4"/>
+    <property name="dir.workspace" value="/Users/yesudas/eclipse-workspace"/>
     <property name="dir.jarfile" value="${dir.buildfile}"/>
     <target name="create_run_jar">
         <jar destfile="${dir.jarfile}/bible-converter.jar" filesetmanifest="mergewithoutmain">
@@ -14,6 +14,9 @@
             </manifest>
             <fileset dir="${dir.jarfile}/bin"/>
             <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/bible-parser.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-core-2.19.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-annotations-2.19.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/libs/jackson-databind-2.19.2.jar"/>
         </jar>
     </target>
 </project>

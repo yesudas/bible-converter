@@ -1,0 +1,64 @@
+{
+  "biblesByLanguage": {
+    "English": {
+      "languageCode": "en",
+      "languageName": "English",
+      "bibles": [
+        {
+          "abbr": "TCB1973",
+          "isDefault": false,
+          "commonName": "Contemporary English Version",
+          "hide": false
+        },
+        {
+          "abbr": "TCL1995",
+          "isDefault": false,
+          "commonName": "Contemporary English Version",
+          "hide": false
+        }
+      ]
+    },
+    "தமிழ்": {
+      "languageCode": "ta",
+      "languageName": "தமிழ்",
+      "bibles": [
+        {
+          "abbr": "TOV2017",
+          "isDefault": true,
+          "commonName": "Tamil One Version 2017",
+          "hide": false
+        },
+        {
+          "abbr": "TCVIN2022",
+          "isDefault": false,
+          "commonName": "Tamil Common Version with Introduction 2022",
+          "hide": false
+        }
+      ]
+    },
+    "ಕನ್ನಡ": {
+      "languageCode": "kn",
+      "languageName": "Kannada",
+      "bibles": [
+        {
+          "abbr": "TOV1986",
+          "isDefault": false,
+          "commonName": "Tamil One Version 1986",
+          "hide": false
+        },
+        {
+          "abbr": "TCVIN2020",
+          "isDefault": false,
+          "commonName": "Tamil Common Version with Introduction 2020",
+          "hide": false
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "totalLanguages": 3,
+    "totalBibles": 5,
+    "lastUpdated": "2025-10-12",
+    "supportedLanguages": ["English", "தமிழ்", "ಕನ್ನಡ"]
+  }
+}
