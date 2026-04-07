@@ -34,6 +34,34 @@ public class Utils {
 			return "Arabic";
 		case "la":
 			return "Latin";
+		case "awa":
+			return "Awadhi";
+		case "bn":
+			return "Bengali";
+		case "gu":
+			return "Gujarati";
+		case "mai":
+			return "Maithili";
+		case "mni":
+			return "Manipuri";
+		case "mr":
+			return "Marathi";
+		case "ms":
+			return "Malay";
+		case "ne":
+			return "Nepali";
+		case "original":
+			return "Original";
+		case "or":
+			return "Odia";
+		case "pa":
+			return "Punjabi";
+		case "sa":
+			return "Sanskrit";
+		case "si":
+			return "Sinhala";
+		case "ur":
+			return "Urdu";
 		default:
 			// Log unknown language codes for user to be aware
 			System.out.println("Warning: Unknown language code encountered: " + languageCode);
@@ -53,13 +81,13 @@ public class Utils {
 				languageName = "";
 				bibleName = "";
 			} else {
-				languageName = getLanguageNameFromCode(languageCode) + "/";
+				languageName = getLanguageNameFromCode(languageCode) + File.separator;
 			}
 
-			String outputFolder = BibleConverter.outputFormat + "/" + languageName + bibleName;
+			String outputFolder = BibleConverter.outputFormat + File.separator + languageName + bibleName;
 
 			// Get parent directory of the JAR
-			BibleConverter.outputPath = jarFile.getParentFile().getAbsolutePath() + "/Output/" + outputFolder;
+			BibleConverter.outputPath = jarFile.getParentFile().getAbsolutePath() + File.separator + "Output" + File.separator + outputFolder;
 		}
 	}
 

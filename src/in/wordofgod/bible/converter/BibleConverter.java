@@ -85,6 +85,14 @@ public class BibleConverter {
 			CreateLanguagesJson.process();
 			break;
 
+		case Constants.FORMAT_MSWORD_BY_BOOKS:
+			MSWord.createMSWordByBooks();
+			break;
+
+		case Constants.FORMAT_MYBIBLEZONE:
+			MyBibleZone.createMyBibleZone();
+			break;
+
 		default:
 			System.out.println("Given format is not supported, pls check the supported format below.");
 			printHelpMessage();
@@ -118,7 +126,7 @@ public class BibleConverter {
 	public static void printHelpMessage() {
 		System.out.println("\nHelp on Usage of this program:");
 		System.out.println(
-				"\nSupported formats:\n\t1. TextFiles\n\t2. TextFilesByDirectory\n\t3. JSON\n\t4. SingleTextFile\n\t5. TheWordWithoutHtmlTags\n\t6. NormalizeText\n\t7. CreateLanguagesJson");
+				"\nSupported formats:\n\t1. TextFiles\n\t2. TextFilesByDirectory\n\t3. JSON\n\t4. SingleTextFile\n\t5. TheWordWithoutHtmlTags\n\t6. NormalizeText\n\t7. CreateLanguagesJson\n\t8. MSWordByBooks\n\t9. MyBibleZone");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
@@ -128,5 +136,9 @@ public class BibleConverter {
 				"\nExample 2: java -jar bible-coverter.jar TextFilesByDirectory C:/taOV.ont C:/taOV-information.ini");
 		System.out.println(
 				"\nExample 3: java -jar bible-coverter.jar CreateLanguagesJson C:/taOV.ont C:/taOV-information.ini");
+		System.out.println(
+				"\nExample 4: java -jar bible-coverter.jar MSWordByBooks C:/taOV.ont C:/taOV-information.ini");
+		System.out.println(
+				"\nExample 5: java -jar bible-coverter.jar MyBibleZone C:/taOV.ont C:/taOV-information.ini");
 	}
 }

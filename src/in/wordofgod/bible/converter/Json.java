@@ -53,6 +53,13 @@ public class Json {
 		info.translatedBy = bible.getTranslatedBy();
 		info.copyRight = bible.getCopyRight();
 		info.additionalInformation = bible.getAdditionalInformation();
+		info.totalBooks = bible.getTotalBooks();
+		info.totalChapters = bible.getTotalChapters();
+		info.totalVerses = bible.getTotalVerses();
+		info.totalWords = bible.getTotalWords();
+		info.totalUniqueWords = bible.getTotalUniqueWords();
+		info.hasOT = bible.isHasOT();
+		info.hasNT = bible.isHasNT();
 
 		List<BookJson> booksJson = new ArrayList<>();
 
@@ -74,7 +81,7 @@ public class Json {
 				for (Verse verse : chapter.getVerses()) {
 					verses.add(new VerseJson(Integer.valueOf(verse.getNumber()), verse.getUnParsedText()));
 				}
-				String filePath = bookDir + "/" + chapter.getChapter() + ".json";
+				String filePath = bookDir + File.separator + chapter.getChapter() + ".json";
 				try {
 					ChapterJson chap = new ChapterJson(bible.getAbbr(), book.getLongName(), book.getEnglishName(),
 							Integer.valueOf(chapter.getChapter()), verses);
@@ -88,7 +95,7 @@ public class Json {
 			}
 		}
 
-		String filePath = BibleConverter.outputPath + "/" + "bibles.json";
+		String filePath = BibleConverter.outputPath + File.separator + "bibles.json";
 		createBibleInfoFile(filePath, biblesJson);
 
 		System.out.println("Json Creation Completed...");
@@ -96,7 +103,7 @@ public class Json {
 	}
 
 	private static void createDir(String dirPath) {
-		File dir = new File(BibleConverter.outputPath + "/" + dirPath);
+		File dir = new File(BibleConverter.outputPath + File.separator + dirPath);
 		if (dir.exists()) {
 			System.out.println("Directory already exists: " + dir.getAbsolutePath());
 		} else {
@@ -109,7 +116,7 @@ public class Json {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			// Removed pretty print for smaller file size
-			mapper.writeValue(new File(BibleConverter.outputPath + "/" + filePath), chapter);
+			mapper.writeValue(new File(BibleConverter.outputPath + File.separator + filePath), chapter);
 			System.out.println("Created the file: " + filePath);
 		} catch (IOException e) {
 			e.printStackTrace();

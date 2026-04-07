@@ -6,11 +6,29 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/bible-parser.jar" sourcepath="/wog-bible-parser"/>
-	<classpathentry kind="lib" path="libs/jackson-core-2.19.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-annotations-2.19.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-databind-2.19.2.jar"/>
 	<classpathentry kind="lib" path="libs/antlr-runtime-3.4.jar"/>
+	<classpathentry kind="lib" path="libs/bible-parser.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.19.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.19.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.19.2.jar"/>
 	<classpathentry kind="lib" path="libs/jsoup-1.21.2.jar"/>
+	<classpathentry kind="lib" path="libs/sqljet-1.1.15.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-excelant-5.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-javadoc-5.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-ooxml-full-5.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-scratchpad-5.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/ooxml-lib/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/ooxml-lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/ooxml-lib/curvesapi-1.06.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/ooxml-lib/slf4j-api-1.7.32.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/ooxml-lib/xmlbeans-5.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/commons-codec-1.15.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/log4j-api-2.14.1.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/lib/SparseBitSet-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-5.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/poi-5.1/poi-ooxml-5.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

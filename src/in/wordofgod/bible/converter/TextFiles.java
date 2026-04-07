@@ -36,11 +36,18 @@ public class TextFiles {
 			System.out.println("TheWord Bible loaded successfully...");
 		}
 
+		try {
+			Utils.setOutputFolder(bible.getLanguageCode());
+		} catch (java.net.URISyntaxException e) {
+			e.printStackTrace();
+			return;
+		}
+
 		for (Book book : bible.getBooks()) {
 			String bookDir = getBookNo(book.getBookNo()) + " " + book.getLongName();
 			createDir(bookDir);
 			for (Chapter chapter : book.getChapters()) {
-				String filePath = bookDir + "/" + getChapterNo(book.getBookNo(), chapter.getChapter()) + ".txt";
+				String filePath = bookDir + File.separator + getChapterNo(book.getBookNo(), chapter.getChapter()) + ".txt";
 				StringBuilder verses = new StringBuilder();
 				for (Verse verse : chapter.getVerses()) {
 					String verseText = removeHTMLTags(verse.getText());
@@ -54,7 +61,7 @@ public class TextFiles {
 	}
 
 	private static void createDir(String dirPath) {
-		File dir = new File(BibleConverter.outputPath + "/" + dirPath);
+		File dir = new File(BibleConverter.outputPath + File.separator + dirPath);
 		if (dir.exists()) {
 			System.out.println("Directory already exists: " + dir.getAbsolutePath());
 		} else {
@@ -64,9 +71,10 @@ public class TextFiles {
 	}
 
 	private static void createFile(String filePath, String text) {
-		createDir(BibleConverter.outputPath);
 		try {
-			Files.writeString(Path.of(BibleConverter.outputPath + "/" + filePath), text);
+			Path path = Path.of(BibleConverter.outputPath + File.separator + filePath);
+			Files.createDirectories(path.getParent());
+			Files.writeString(path, text);
 			System.out.println("Created the file: " + filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -116,6 +124,13 @@ public class TextFiles {
 			System.out.println("TheWord Bible loaded successfully...");
 		}
 
+		try {
+			Utils.setOutputFolder(bible.getLanguageCode());
+		} catch (java.net.URISyntaxException e) {
+			e.printStackTrace();
+			return;
+		}
+
 		StringBuilder sb = new StringBuilder();
 		for (Book book : bible.getBooks()) {
 			for (Chapter chapter : book.getChapters()) {
@@ -148,6 +163,13 @@ public class TextFiles {
 		}
 		if (bible != null) {
 			System.out.println("TheWord Bible loaded successfully...");
+		}
+
+		try {
+			Utils.setOutputFolder(bible.getLanguageCode());
+		} catch (java.net.URISyntaxException e) {
+			e.printStackTrace();
+			return;
 		}
 
 		StringBuilder sb = new StringBuilder();

@@ -12,5 +12,13 @@ public class BibleInfoJson {
 	public String translatedBy;
 	public String copyRight;
 	public String additionalInformation;
+	public int totalBooks;
+	public int totalChapters;
+	public int totalVerses;
+	public int totalWords;
+	public int totalUniqueWords;
+	public int totalReferences;
+	public boolean hasOT = true;
+	public boolean hasNT = true;
 
 }

@@ -15,5 +15,6 @@ public class Constants {
 	public static final String FORMAT_THEWORDWITHOUTHTMLTAGS = "THEWORDWITHOUTHTMLTAGS";
 	public static final String FORMAT_NORMALIZETEXT = "NORMALIZETEXT";
 	public static final String FORMAT_CREATELANGUAGESJSON = "CREATELANGUAGESJSON";
-
+	public static final String FORMAT_MSWORD_BY_BOOKS = "MSWORDBYBOOKS";
+	public static final String FORMAT_MYBIBLEZONE = "MYBIBLEZONE";
 }
