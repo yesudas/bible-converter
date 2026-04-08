@@ -58,7 +58,7 @@ public class BibleConverter {
 
 		switch (outputFormat.toUpperCase()) {
 		case Constants.FORMAT_TEXTFILES:
-			TextFiles.createTextFilesByDirectory();
+			TextFiles.createTextFilesPerBook();
 			break;
 
 		case Constants.FORMAT_SINGLE_TEXTFILE:
