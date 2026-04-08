@@ -191,6 +191,48 @@ public class TextFiles {
 
 	}
 
+	public static void createTextFilesPerBook() {
+		System.out.println("TextFiles (one per book) Creation Started...");
+		File file = new File(BibleConverter.bibleSourcePath);
+
+		System.out.println("TheWord Bible loading started...");
+		Bible bible;
+		try {
+			bible = TheWord.getBible(file.getAbsolutePath(), BibleConverter.bibleInformationPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		if (bible != null) {
+			System.out.println("TheWord Bible loaded successfully...");
+		}
+
+		try {
+			Utils.setOutputFolder(bible.getLanguageCode());
+		} catch (java.net.URISyntaxException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		for (Book book : bible.getBooks()) {
+			StringBuilder sb = new StringBuilder();
+			String bookHeading = capitalizeFirstLetter(book.getLongName());
+			for (Chapter chapter : book.getChapters()) {
+				sb.append(bookHeading).append(" ").append(chapter.getChapter()).append("\n");
+				for (Verse verse : chapter.getVerses()) {
+					String verseText = removeHTMLTags(verse.getText());
+					sb.append(verse.getNumber()).append(". ").append(verseText).append("\n");
+				}
+				sb.append("\n");
+			}
+			String fileName = getBookNo(book.getBookNo()) + " " + book.getLongName() + ".txt";
+			createFile(fileName, sb.toString());
+		}
+
+		System.out.println("TextFiles (one per book) Creation Completed...");
+		System.out.println("Results are saved in the directory: " + BibleConverter.outputPath);
+	}
+
 	public static String capitalizeFirstLetter(String str) {
 
 		if (str == null || str.length() == 0)
