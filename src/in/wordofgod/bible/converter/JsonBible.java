@@ -1,5 +1,5 @@
 /**
- * 
+ * Converts Bible text to JsonBible format (https://github.com/ChurchApps/json-bible).
  */
 package in.wordofgod.bible.converter;
 
@@ -75,11 +75,11 @@ public class JsonBible {
 			bookMap.put("name",   book.getLongName());
 
 			List<Map<String, Object>> chapters = new ArrayList<>();
-			int chapterCount = 1;
+			int expectedChapterNumber = 1;
 			for (Chapter chapter : book.getChapters()) {
 				if (chapter.getChapter() == null || chapter.getChapter().isEmpty()) {
-					System.out.println("Invalid chapter in " + book.getLongName() + " Chapter number: " + chapterCount);
-					chapter.setChapter("" + chapterCount);
+					System.out.println("Invalid chapter in " + book.getLongName() + " Chapter number: " + expectedChapterNumber);
+					chapter.setChapter("" + expectedChapterNumber);
 				}
 
 				Map<String, Object> chapterMap = new LinkedHashMap<>();
@@ -94,7 +94,7 @@ public class JsonBible {
 				}
 				chapterMap.put("verses", verses);
 				chapters.add(chapterMap);
-				chapterCount++;
+				expectedChapterNumber++;
 			}
 			bookMap.put("chapters", chapters);
 			books.add(bookMap);

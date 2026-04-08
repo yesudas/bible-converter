@@ -309,7 +309,7 @@ Output/JsonBible/தமிழ்/TRHE1836/
 ```json
 {
   "name": "Bible Name",
-  "metadata": { "publisher": "" },
+  "metadata": { "title": "Bible Name", "identifier": "ABBR", "publisher": "...", "...": "..." },
   "books": [
     {
       "number": 1,
