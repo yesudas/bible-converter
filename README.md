@@ -16,6 +16,19 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - **Batch Processing**: Process multiple Bible versions at once
 - **Cross-Platform**: Uses `File.separator` throughout — works correctly on Windows, macOS, and Linux
 
+## Supported Output Formats
+- TextFiles
+- TextFilesByDirectory
+- JSON
+- SingleTextFile
+- TheWordWithoutHtmlTags
+- NormalizeText
+- CreateLanguagesJson
+- MSWordByBooks
+- MyBibleZone
+- HTML
+- JsonBible
+
 ## Installation
 
 ### From Source
