@@ -19,4 +19,6 @@ public class Constants {
 	public static final String FORMAT_MYBIBLEZONE = "MYBIBLEZONE";
 	public static final String FORMAT_HTML = "HTML";
 	public static final String FORMAT_JSONBIBLE = "JSONBIBLE";
+	public static final String FORMAT_THML = "THML";
+	public static final String FORMAT_THML_SINGLE = "THMLSINGLE";
 }

@@ -1,11 +1,12 @@
 # bible-converter
-Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, and HTML.
+Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, and ThML.
 
 ## Overview
 This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts them to multiple formats for different use cases. It supports multilingual Bible texts including English, Tamil, Hindi, Kannada, Telugu, Malayalam, Hebrew, Greek, Arabic, and more.
 
 ## Features
-- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **ThML Export**: Generate [Theological Markup Language](https://www.ccel.org/ThML/ThML1.04.htm) (ThML 1.04) files with full metadata, one file per book and a master index
 - **HTML Export**: Generate a fully styled, self-contained website with one page per book, table of contents, font size controls, and responsive design
 - **MyBible.Zone Support**: Generate ready-to-use `.SQLite3` database files for the MyBible.Zone app
 - **Text Normalization**: Advanced text cleaning and normalization for Bible texts
@@ -28,6 +29,8 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - MyBibleZone
 - HTML
 - JsonBible
+- ThML
+- ThMLSingle
 
 ## Installation
 
@@ -101,6 +104,17 @@ Output/
 │           │   ├── 01.txt
 │           │   └── ...
 │           └── ...
+├── ThML/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           ├── TRHE1836-index.thml
+│           ├── 01-Genesis.thml
+│           ├── 02-Exodus.thml
+│           └── ...
+├── ThMLSingle/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           └── TRHE1836.thml
 └── ...
 ```
 
@@ -396,6 +410,119 @@ Output/JsonBible/தமிழ்/TRHE1836/
 | hasOT | `bible.isHasOT()` |
 | hasNT | `bible.isHasNT()` |
 | generatedBy | `Created using BibleConverter from https://github.com/yesudas/bible-converter` |
+
+### 12. **ThML**
+Converts Bible text to [Theological Markup Language](https://www.ccel.org/ThML/ThML1.04.htm) (ThML 1.04) format — the standard used by the [Christian Classics Ethereal Library (CCEL)](https://www.ccel.org). ThML is an XML-based format that extends HTML 4.0 with theology-specific elements for scripture references, metadata, and hierarchical document structure.
+
+- **One `.thml` file per book** — named `[BookNo]-[EnglishBookName].thml` (e.g., `40-Matthew.thml`)
+- **One master index file** — named `[ABBR]-index.thml` with full Bible metadata and links to all book files
+- **Full `<ThML.head>` metadata** — `<electronicEdInfo>` block with title, creator, publisher, description, date, identifier, language, rights, source
+- **`<revisionHistory>`** — auto-filled with today's date and BibleConverter credit
+- **Hierarchical structure**:
+  - Each book is a `<div1 type="book">` with a `<head>` element
+  - Each chapter is a `<div2 type="chapter">` with `n` (chapter number) and `id` (OSIS-style reference, e.g. `Matt.1`) attributes
+  - Each verse is a `<scripRef>` element with a `passage` attribute (OSIS-style reference, e.g. `Matt.1.1`) and a superscript verse number
+- **OSIS-style passage references** on every verse (e.g. `Gen.1.1`, `Matt.5.3`)
+- **Full XML escaping** — all text is properly escaped for valid XML output
+
+```bash
+java -jar bible-converter.jar ThML /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/ThML/தமிழ்/TRHE1836/
+├── TRHE1836-index.thml
+├── 01-Genesis.thml
+├── 02-Exodus.thml
+├── ...
+└── 66-Revelation.thml
+```
+
+**File structure example (`01-Genesis.thml`):**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ThML PUBLIC "-//CCEL//DTD ThML 1.04//EN"
+  "http://www.ccel.org/ThML/ThML1.04.dtd">
+<ThML>
+  <ThML.head>
+    <electronicEdInfo>
+      <title>Bible Common Name</title>
+      <creator role="translator">Translator Name</creator>
+      <publisher>Publisher Name</publisher>
+      <subject>Bible</subject>
+      <description>Long Bible Name</description>
+      <date>1836</date>
+      <type>Text</type>
+      <format>ThML</format>
+      <identifier>TRHE1836</identifier>
+      <language>ta</language>
+      <rights>Public Domain</rights>
+      <source>Converted using BibleConverter program https://github.com/yesudas/bible-converter</source>
+    </electronicEdInfo>
+    <revisionHistory>
+      <revision date="2026-04-08">
+        <description>Created using BibleConverter program https://github.com/yesudas/bible-converter</description>
+      </revision>
+    </revisionHistory>
+  </ThML.head>
+  <ThML.body>
+    <div1 type="book" id="Gen">
+      <head>Genesis</head>
+      <div2 type="chapter" n="1" id="Gen.1">
+        <head>Genesis 1</head>
+        <scripRef passage="Gen.1.1"><sup>1</sup> In the beginning God created the heaven and the earth.</scripRef>
+        <scripRef passage="Gen.1.2"><sup>2</sup> And the earth was without form, and void...</scripRef>
+      </div2>
+    </div1>
+  </ThML.body>
+</ThML>
+```
+
+**ThML head metadata fields:**
+
+| ThML element | Source |
+|---|---|
+| `<title>` | `bible.getCommonName()` |
+| `<creator role="translator">` | `bible.getTranslatedBy()` |
+| `<publisher>` | `bible.getPublishedBy()` |
+| `<description>` | `bible.getLongName()` |
+| `<date>` | `bible.getPublishedYear()` |
+| `<identifier>` | `bible.getAbbr()` |
+| `<language>` | `bible.getLanguageCode()` |
+| `<rights>` | `bible.getCopyRight()` |
+| `<source>` | BibleConverter GitHub link |
+
+### 13. **ThMLSingle**
+Same as **ThML** but outputs the entire Bible — all books, all chapters, all verses — into a **single `.thml` file** instead of one file per book.
+
+The ThML 1.04 specification fully supports this through its hierarchical `<div>` structure. All books sit as sibling `<div1 type="book">` elements inside one `<ThML.body>`, with the same `<ThML.head>` metadata block.
+
+- **Single output file** named `[ABBR].thml` (e.g., `TRHE1836.thml`)
+- Same full `<ThML.head>` metadata as the multi-file format
+- All books as `<div1 type="book">` elements
+- All chapters as `<div2 type="chapter">` elements with OSIS-style `id` (e.g. `Gen.1`)
+- All verses as `<scripRef passage="...">` elements with OSIS-style passage references (e.g. `Gen.1.1`)
+- Suitable for tools and readers that expect a single self-contained ThML document
+
+```bash
+java -jar bible-converter.jar ThMLSingle /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/ThMLSingle/தமிழ்/TRHE1836/
+└── TRHE1836.thml
+```
+
+**Comparison:**
+
+| Feature | ThML | ThMLSingle |
+|---|---|---|
+| Output files | One per book + index | One file for entire Bible |
+| Index file | `[ABBR]-index.thml` | — |
+| File size | Small per file | Large single file |
+| Best for | Book-by-book browsing, linking | Single-document tools, archiving |
 
 ## Supported Languages
 
