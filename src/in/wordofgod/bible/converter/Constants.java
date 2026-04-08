@@ -18,4 +18,5 @@ public class Constants {
 	public static final String FORMAT_MSWORD_BY_BOOKS = "MSWORDBYBOOKS";
 	public static final String FORMAT_MYBIBLEZONE = "MYBIBLEZONE";
 	public static final String FORMAT_HTML = "HTML";
+	public static final String FORMAT_JSONBIBLE = "JSONBIBLE";
 }
