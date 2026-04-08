@@ -1,11 +1,12 @@
 # bible-converter
-Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, and ThML.
+Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, ThML, and OSIS.
 
 ## Overview
 This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts them to multiple formats for different use cases. It supports multilingual Bible texts including English, Tamil, Hindi, Kannada, Telugu, Malayalam, Hebrew, Greek, Arabic, and more.
 
 ## Features
-- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, OSIS, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **OSIS Export**: Generate [Open Scripture Information Standard](https://crosswire.org/osis/osisCore.2.1.1.xsd) (OSIS 2.1.1) files — a single XML file containing all books with full metadata, testament grouping, and canonical OSIS book/chapter/verse IDs
 - **ThML Export**: Generate [Theological Markup Language](https://www.ccel.org/ThML/ThML1.04.htm) (ThML 1.04) files with full metadata, one file per book and a master index
 - **HTML Export**: Generate a fully styled, self-contained website with one page per book, table of contents, font size controls, and responsive design
 - **MyBible.Zone Support**: Generate ready-to-use `.SQLite3` database files for the MyBible.Zone app
@@ -31,6 +32,7 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - JsonBible
 - ThML
 - ThMLSingle
+- OSIS
 
 ## Installation
 
@@ -87,6 +89,10 @@ Output/
 │   └── தமிழ்/
 │       └── TRHE1836/
 │           └── TRHE1836.SQLite3
+├── OSIS/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           └── TRHE1836.xml
 ├── SingleTextFile/
 │   └── தமிழ்/
 │       └── TRHE1836/
@@ -523,6 +529,88 @@ Output/ThMLSingle/தமிழ்/TRHE1836/
 | Index file | `[ABBR]-index.thml` | — |
 | File size | Small per file | Large single file |
 | Best for | Book-by-book browsing, linking | Single-document tools, archiving |
+
+### 14. **OSIS**
+Converts Bible text to [Open Scripture Information Standard](https://crosswire.org/osis/osisCore.2.1.1.xsd) (OSIS 2.1.1) format — a widely adopted XML standard maintained by [CrossWire Bible Society](https://crosswire.org), used by Sword Project, BibleDesktop, and many other Bible software tools.
+
+- **Single output file** named `[ABBR].xml` (e.g., `TRHE1836.xml`)
+- **OSIS 2.1.1** namespace and `xsi:schemaLocation` pointing to the CrossWire XSD
+- **`<header>`** block with full metadata (`<revisionDesc>`, `<work>` with title, translator, publisher, description, date, identifier, rights, language, source, type, format) and the required `<work osisWork="Bible">` reference work declaration
+- **`<osisText>`** element with `osisIDWork`, `osisRefWork="Bible"`, and `xml:lang` attributes
+- **Testament grouping** via `<div type="x-testament">` — OT and NT automatically detected via canonical `BookID` enum
+- **Per-book** `<div type="book" osisID="Gen">` with a `<title type="main">`
+- **Per-chapter** `<chapter osisID="Gen.1" n="1">` with a `<title type="chapter">`
+- **Per-verse** `<verse osisID="Gen.1.1" n="1">` with full XML escaping
+- **Canonical OSIS book IDs** sourced from the `BookID` enum (e.g. `Gen`, `Matt`, `Rev`)
+
+```bash
+java -jar bible-converter.jar OSIS /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/OSIS/தமிழ்/TRHE1836/
+└── TRHE1836.xml
+```
+
+**File structure example:**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<osis
+  xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace https://crosswire.org/osis/osisCore.2.1.1.xsd">
+  <osisText osisIDWork="TRHE1836" osisRefWork="Bible" xml:lang="ta">
+    <header>
+      <revisionDesc resp="BibleConverter">
+        <date>2026-04-08</date>
+        <p>Created using BibleConverter program https://github.com/yesudas/bible-converter</p>
+      </revisionDesc>
+      <work osisWork="TRHE1836">
+        <title>Tamil Revised Henry Edition 1836</title>
+        <contributor role="translator">Translator Name</contributor>
+        <creator role="publisher">Publisher Name</creator>
+        <identifier type="OSIS">Bible.TRHE1836</identifier>
+        <rights>Public Domain</rights>
+        <language type="ISO-639-1">ta</language>
+        <type type="OSIS">Bible</type>
+        <format type="OSIS">text/xml</format>
+      </work>
+      <work osisWork="Bible">
+        <type type="OSIS">Bible</type>
+        <identifier type="OSIS">Bible</identifier>
+      </work>
+    </header>
+    <div type="x-testament">
+      <div type="book" osisID="Gen">
+        <title type="main">ஆதியாகமம்</title>
+        <chapter osisID="Gen.1" n="1">
+          <title type="chapter">ஆதியாகமம் 1</title>
+          <verse osisID="Gen.1.1" n="1">ஆதியிலே தேவன் வானத்தையும் பூமியையும் சிருஷ்டித்தார்.</verse>
+          <verse osisID="Gen.1.2" n="2">பூமியானது ஒழுங்கற்று பாழாய் இருந்தது...</verse>
+        </chapter>
+      </div>
+    </div>
+  </osisText>
+</osis>
+```
+
+**OSIS header metadata fields:**
+
+| OSIS element | Source |
+|---|---|
+| `<title>` | `bible.getCommonName()` |
+| `<contributor role="translator">` | `bible.getTranslatedBy()` |
+| `<creator role="publisher">` | `bible.getPublishedBy()` |
+| `<description>` | `bible.getLongName()` |
+| `<publisher>` | `bible.getPublishedBy()` |
+| `<date>` | `bible.getPublishedYear()` |
+| `<identifier type="OSIS">` | `Bible.[bible.getAbbr()]` |
+| `<rights>` | `bible.getCopyRight()` |
+| `<language type="ISO-639-1">` | `bible.getLanguageCode()` |
+| `<source>` | BibleConverter GitHub link |
+| `<type type="OSIS">` | `Bible` |
+| `<format type="OSIS">` | `text/xml` |
 
 ## Supported Languages
 

@@ -21,4 +21,5 @@ public class Constants {
 	public static final String FORMAT_JSONBIBLE = "JSONBIBLE";
 	public static final String FORMAT_THML = "THML";
 	public static final String FORMAT_THML_SINGLE = "THMLSINGLE";
+	public static final String FORMAT_OSIS = "OSIS";
 }
