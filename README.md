@@ -91,6 +91,12 @@ Output/
 ├── TextFiles/
 │   └── தமிழ்/
 │       └── TRHE1836/
+│           ├── 01 Genesis.txt
+│           ├── 02 Exodus.txt
+│           └── ...
+├── TextFilesByDirectory/
+│   └── தமிழ்/
+│       └── TRHE1836/
 │           ├── 01 Genesis/
 │           │   ├── 01.txt
 │           │   └── ...
@@ -101,18 +107,43 @@ Output/
 ## Supported Formats
 
 ### 1. **TextFiles**
-Converts Bible text to individual text files organised by book directories and chapter files.
-- One directory per book (named `[BookNo] [BookName]`)
-- One text file per chapter (named `[ChapterNo].txt`)
+Converts Bible text to one text file per book, with all chapters included inline.
+- One text file per book (named `[BookNo] [BookName].txt`, e.g., `01 Genesis.txt`)
+- Chapter headings in the format: `[BookName] [ChapterNumber]`
 - Each verse on its own line with format: `[VerseNumber]. [VerseText]`
+- Blank line after each chapter
 ```bash
 java -jar bible-converter.jar TextFiles /path/to/taOV.ont /path/to/taOV-information.ini
 ```
 
+**Output structure:**
+```
+Output/TextFiles/தமிழ்/TRHE1836/
+├── 01 Genesis.txt
+├── 02 Exodus.txt
+├── ...
+└── 66 Revelation.txt
+```
+
 ### 2. **TextFilesByDirectory**
-Identical to `TextFiles` — creates text files organised in directories by book.
+Converts Bible text to individual chapter files organised in book directories.
+- One directory per book (named `[BookNo] [BookName]`)
+- One text file per chapter inside each book directory (named `[ChapterNo].txt`)
+- Each verse on its own line with format: `[VerseNumber]. [VerseText]`
 ```bash
 java -jar bible-converter.jar TextFilesByDirectory /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/TextFilesByDirectory/தமிழ்/TRHE1836/
+├── 01 Genesis/
+│   ├── 01.txt
+│   ├── 02.txt
+│   └── ...
+├── 02 Exodus/
+│   └── ...
+└── ...
 ```
 
 ### 3. **JSON**
