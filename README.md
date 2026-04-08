@@ -287,31 +287,7 @@ Output/HTML/தமிழ்/TRHE1836/
 
 ## Supported Languages
 
-| Code | Language |
-|---|---|
-| `ta` | தமிழ் (Tamil) |
-| `en` | English |
-| `kn` | ಕನ್ನಡ (Kannada) |
-| `te` | తెలుగు (Telugu) |
-| `hi` | हिन्दी (Hindi) |
-| `ml` | മലയാളം (Malayalam) |
-| `he` / `iw` | Hebrew |
-| `grc` / `el` | Greek |
-| `ar` | Arabic |
-| `la` | Latin |
-| `bn` | Bengali |
-| `gu` | Gujarati |
-| `mr` | Marathi |
-| `ne` | Nepali |
-| `or` | Odia |
-| `pa` | Punjabi |
-| `sa` | Sanskrit |
-| `si` | Sinhala |
-| `ur` | Urdu |
-| `ms` | Malay |
-| `awa` | Awadhi |
-| `mai` | Maithili |
-| `mni` | Manipuri |
+Supports all languages
 
 ## Bible Information File (`-information.ini`)
 
