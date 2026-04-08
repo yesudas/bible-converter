@@ -47,7 +47,7 @@ public class MyBibleZone {
 	private static final String COLOR_DEFAULT           = "#ffffff"; // Default/Apocrypha
 
 	// Path inside the classpath where SQL seed files live
-	private static final String SQL_RESOURCE_BASE = "in/wordofgod/bible/sql/";
+	private static final String SQL_RESOURCE_BASE = "in/wordofgod/bible/sql/MyBibleZone/";
 
 	public static void createMyBibleZone() throws URISyntaxException {
 		System.out.println("MyBible.Zone SQLite3 Creation Started...");
@@ -137,7 +137,7 @@ public class MyBibleZone {
 	}
 
 	/**
-	 * Reads the named SQL file from the classpath (in/wordofgod/bible/sql/).
+	 * Reads the named SQL file from the classpath (in/wordofgod/bible/sql/MyBibleZone/).
 	 * Returns null if not found.
 	 */
 	private static String readSqlResource(String fileName) {

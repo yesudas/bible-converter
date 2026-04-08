@@ -1,11 +1,12 @@
 # bible-converter
-Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, ThML, and OSIS.
+Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, ThML, OSIS, and Zefania XML.
 
 ## Overview
 This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts them to multiple formats for different use cases. It supports multilingual Bible texts including English, Tamil, Hindi, Kannada, Telugu, Malayalam, Hebrew, Greek, Arabic, and more.
 
 ## Features
-- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, OSIS, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, OSIS, Zefania XML, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **Zefania XML Export**: Generate [Zefania XML](https://github.com/biblenerd/Zefania-XML-Preservation) (zef2014) files — a single XML file containing all books with full metadata, compatible with a wide range of Bible software tools
 - **OSIS Export**: Generate [Open Scripture Information Standard](https://crosswire.org/osis/osisCore.2.1.1.xsd) (OSIS 2.1.1) files — a single XML file containing all books with full metadata, testament grouping, and canonical OSIS book/chapter/verse IDs
 - **ThML Export**: Generate [Theological Markup Language](https://www.ccel.org/ThML/ThML1.04.htm) (ThML 1.04) files with full metadata, one file per book and a master index
 - **HTML Export**: Generate a fully styled, self-contained website with one page per book, table of contents, font size controls, and responsive design
@@ -33,6 +34,7 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - ThML
 - ThMLSingle
 - OSIS
+- ZefaniaXML
 
 ## Installation
 
@@ -121,6 +123,10 @@ Output/
 │   └── தமிழ்/
 │       └── TRHE1836/
 │           └── TRHE1836.thml
+├── ZefaniaXML/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           └── TRHE1836.xml
 └── ...
 ```
 
@@ -611,6 +617,87 @@ Output/OSIS/தமிழ்/TRHE1836/
 | `<source>` | BibleConverter GitHub link |
 | `<type type="OSIS">` | `Bible` |
 | `<format type="OSIS">` | `text/xml` |
+
+### 15. **ZefaniaXML**
+Converts Bible text to [Zefania XML](https://github.com/biblenerd/Zefania-XML-Preservation) (zef2014) format — a widely used open XML standard for distributing Bible texts, supported by many Bible readers and tools including Zefania Bible Reader, theWord, and others.
+
+- **Single output file** named `[ABBR].xml` (e.g., `TRHE1836.xml`)
+- **`<XMLBIBLE>`** root element with `biblename`, `version`, `status`, `type`, and `xsi:noNamespaceSchemaLocation="zef2014.xsd"` attributes
+- **`<INFORMATION>`** block with full metadata: `<title>`, `<creator>`, `<subject>`, `<description>`, `<publisher>`, `<contributors/>`, `<date>`, `<type>`, `<format>`, `<identifier>`, `<source>`, `<language>`, `<rights>`
+- **Per-book** `<BIBLEBOOK bnumber="1" bname="Genesis" bsname="Gen">` — book number sourced from the canonical ZefID in the `BookID` enum
+- **Per-chapter** `<CHAPTER cnumber="1">`
+- **Per-verse** `<VERS vnumber="1">verse text</VERS>` with full XML escaping
+- Tag naming follows real-world Zefania files (**UPPERCASE** element names as used in the KJV sample and all published Zefania Bibles)
+
+```bash
+java -jar bible-converter.jar ZefaniaXML /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/ZefaniaXML/தமிழ்/TRHE1836/
+└── TRHE1836.xml
+```
+
+**File structure example:**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Visit the online documentation for Zefania XML Markup-->
+<!--https://github.com/biblenerd/Zefania-XML-Preservation-->
+<!--Created using BibleConverter program https://github.com/yesudas/bible-converter-->
+<XMLBIBLE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="zef2014.xsd"
+          version="2.0.1.18" status="v"
+          biblename="Tamil Revised Henry Edition 1836"
+          type="x-bible" revision="0">
+  <INFORMATION>
+    <title>Tamil Revised Henry Edition 1836</title>
+    <creator>Translator Name</creator>
+    <subject>The Holy Bible</subject>
+    <description>தமிழ் திருத்திய ஹென்றி பதிப்பு 1836</description>
+    <publisher>Publisher Name</publisher>
+    <contributors/>
+    <date>1836</date>
+    <type>Bible</type>
+    <format>Zefania XML Bible Markup Language</format>
+    <identifier>TRHE1836</identifier>
+    <source>Converted using BibleConverter program https://github.com/yesudas/bible-converter</source>
+    <language>ta</language>
+    <rights>Public Domain</rights>
+  </INFORMATION>
+  <BIBLEBOOK bnumber="1" bname="ஆதியாகமம்" bsname="Gen">
+    <CHAPTER cnumber="1">
+      <VERS vnumber="1">ஆதியிலே தேவன் வானத்தையும் பூமியையும் சிருஷ்டித்தார்.</VERS>
+      <VERS vnumber="2">பூமியானது ஒழுங்கற்று பாழாய் இருந்தது...</VERS>
+    </CHAPTER>
+  </BIBLEBOOK>
+</XMLBIBLE>
+```
+
+**INFORMATION metadata fields:**
+
+| Element | Source |
+|---|---|
+| `<title>` | `bible.getCommonName()` |
+| `<creator>` | `bible.getTranslatedBy()` |
+| `<subject>` | `The Holy Bible` (fixed) |
+| `<description>` | `bible.getLongName()` |
+| `<publisher>` | `bible.getPublishedBy()` |
+| `<date>` | `bible.getPublishedYear()` |
+| `<type>` | `Bible` (fixed) |
+| `<format>` | `Zefania XML Bible Markup Language` (fixed) |
+| `<identifier>` | `bible.getAbbr()` |
+| `<source>` | BibleConverter GitHub link |
+| `<language>` | `bible.getLanguageCode()` |
+| `<rights>` | `bible.getCopyRight()` |
+
+**`BIBLEBOOK` attributes:**
+
+| Attribute | Source |
+|---|---|
+| `bnumber` | `BookID.getZefID()` (canonical Zefania book number 1–66) |
+| `bname` | `book.getLongName()` |
+| `bsname` | `book.getThreeLetterCode()` or `book.getAbbr()` |
 
 ## Supported Languages
 
