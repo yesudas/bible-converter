@@ -1,22 +1,24 @@
 # bible-converter
-Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, HTML, ThML, OSIS, and Zefania XML.
+Converts given Bible text in TheWord format to various output formats including JSON, text files, MS Word, MyBible.Zone SQLite3 databases, MySword SQLite3 databases, HTML, ThML, OSIS, and Zefania XML.
 
 ## Overview
 This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts them to multiple formats for different use cases. It supports multilingual Bible texts including English, Tamil, Hindi, Kannada, Telugu, Malayalam, Hebrew, Greek, Arabic, and more.
 
 ## Features
-- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, OSIS, Zefania XML, plain text files, single text file, MS Word, MyBible.Zone SQLite3, HTML, and more
+- **Multiple Output Formats**: Convert Bible text to JSON, JsonBible, ThML, OSIS, Zefania XML, plain text files, single text file, MS Word, MyBible.Zone SQLite3, MySword SQLite3, HTML, and more
 - **Zefania XML Export**: Generate [Zefania XML](https://github.com/biblenerd/Zefania-XML-Preservation) (zef2014) files — a single XML file containing all books with full metadata, compatible with a wide range of Bible software tools
 - **OSIS Export**: Generate [Open Scripture Information Standard](https://crosswire.org/osis/osisCore.2.1.1.xsd) (OSIS 2.1.1) files — a single XML file containing all books with full metadata, testament grouping, and canonical OSIS book/chapter/verse IDs
 - **ThML Export**: Generate [Theological Markup Language](https://www.ccel.org/ThML/ThML1.04.htm) (ThML 1.04) files with full metadata, one file per book and a master index
 - **HTML Export**: Generate a fully styled, self-contained website with one page per book, table of contents, font size controls, and responsive design
 - **MyBible.Zone Support**: Generate ready-to-use `.SQLite3` database files for the MyBible.Zone app
+- **MySword Support**: Generate ready-to-use `.bbl.mybible` SQLite3 database files for the MySword app
 - **Text Normalization**: Advanced text cleaning and normalization for Bible texts
 - **Languages JSON Generation**: Automatically generate language metadata for multiple Bible versions
 - **HTML Tag Removal**: Clean TheWord Bible modules by removing HTML formatting
 - **Unicode Support**: Full UTF-8 support for multilingual Bible texts
 - **Strong's Numbers**: Preserves Hebrew (WH) and Greek (WG) Strong's reference numbers
 - **Batch Processing**: Process multiple Bible versions at once
+- **Export All**: Export to all supported formats in a single command
 - **Cross-Platform**: Uses `File.separator` throughout — works correctly on Windows, macOS, and Linux
 
 ## Supported Output Formats
@@ -35,6 +37,8 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - ThMLSingle
 - OSIS
 - ZefaniaXML
+- MySword
+- All
 
 ## Installation
 
@@ -91,6 +95,10 @@ Output/
 │   └── தமிழ்/
 │       └── TRHE1836/
 │           └── TRHE1836.SQLite3
+├── MySword/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           └── TRHE1836.bbl.mybible
 ├── OSIS/
 │   └── தமிழ்/
 │       └── TRHE1836/

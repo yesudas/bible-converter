@@ -24,4 +24,5 @@ public class Constants {
 	public static final String FORMAT_OSIS = "OSIS";
 	public static final String FORMAT_ZEFANIAXML = "ZEFANIAXML";
 	public static final String FORMAT_MYSWORD = "MYSWORD";
+	public static final String FORMAT_ALL = "ALL";
 }
