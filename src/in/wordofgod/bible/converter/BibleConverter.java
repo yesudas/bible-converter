@@ -117,6 +117,10 @@ public class BibleConverter {
 			ZefaniaXML.createZefaniaXML();
 			break;
 
+		case Constants.FORMAT_MYSWORD:
+			MySword.createMySword();
+			break;
+
 		default:
 			System.out.println("Given format is not supported, pls check the supported format below.");
 			printHelpMessage();
@@ -150,7 +154,7 @@ public class BibleConverter {
 	public static void printHelpMessage() {
 		System.out.println("\nHelp on Usage of this program:");
 		System.out.println(
-				"\nSupported formats:\n\t1. TextFiles\n\t2. TextFilesByDirectory\n\t3. JSON\n\t4. SingleTextFile\n\t5. TheWordWithoutHtmlTags\n\t6. NormalizeText\n\t7. CreateLanguagesJson\n\t8. MSWordByBooks\n\t9. MyBibleZone\n\t10. HTML\n\t11. JsonBible\n\t12. ThML\n\t13. ThMLSingle\n\t14. OSIS\n\t15. ZefaniaXML");
+				"\nSupported formats:\n\t1. TextFiles\n\t2. TextFilesByDirectory\n\t3. JSON\n\t4. SingleTextFile\n\t5. TheWordWithoutHtmlTags\n\t6. NormalizeText\n\t7. CreateLanguagesJson\n\t8. MSWordByBooks\n\t9. MyBibleZone\n\t10. HTML\n\t11. JsonBible\n\t12. ThML\n\t13. ThMLSingle\n\t14. OSIS\n\t15. ZefaniaXML\n\t16. MySword");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
@@ -176,5 +180,7 @@ public class BibleConverter {
 				"\nExample 10: java -jar bible-coverter.jar OSIS C:/taOV.ont C:/taOV-information.ini");
 		System.out.println(
 				"\nExample 11: java -jar bible-coverter.jar ZefaniaXML C:/taOV.ont C:/taOV-information.ini");
+		System.out.println(
+				"\nExample 12: java -jar bible-coverter.jar MySword C:/taOV.ont C:/taOV-information.ini");
 	}
 }
