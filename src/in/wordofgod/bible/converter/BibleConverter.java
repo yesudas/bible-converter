@@ -125,6 +125,10 @@ public class BibleConverter {
 			MSExcel.createMSExcel();
 			break;
 
+		case Constants.FORMAT_CSV:
+			CSV.createCSV();
+			break;
+
 		case Constants.FORMAT_ALL:
 			processAll();
 			break;
@@ -153,6 +157,7 @@ public class BibleConverter {
 		OSIS.createOSIS();
 		ZefaniaXML.createZefaniaXML();
 		MySword.createMySword();
+		CSV.createCSV();
 		System.out.println("Export to ALL formats completed.");
 	}
 
@@ -199,7 +204,8 @@ public class BibleConverter {
 		System.out.println("\t15. ZefaniaXML");
 		System.out.println("\t16. MySword");
 		System.out.println("\t17. MSExcel");
-		System.out.println("\t18. All");
+		System.out.println("\t18. CSV");
+		System.out.println("\t19. All");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
