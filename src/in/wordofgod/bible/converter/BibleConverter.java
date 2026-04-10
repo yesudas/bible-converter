@@ -142,22 +142,57 @@ public class BibleConverter {
 
 	private static void processAll() throws URISyntaxException {
 		System.out.println("Exporting bible to ALL formats...");
+		String savedFormat = outputFormat;
+
+		outputFormat = Constants.FORMAT_TEXTFILES;
 		TextFiles.createTextFilesPerBook();
+
+		outputFormat = Constants.FORMAT_SINGLE_TEXTFILE;
 		TextFiles.createSingleTextFile();
+
+		outputFormat = Constants.FORMAT_TEXTFILES_BY_DIRECTORY;
 		TextFiles.createTextFilesByDirectory();
+
+		outputFormat = Constants.FORMAT_THEWORDWITHOUTHTMLTAGS;
 		TextFiles.createTheWordModuleWithoutHtmlTags();
+
+		outputFormat = Constants.FORMAT_JSON;
 		Json.createJson();
+
+		outputFormat = Constants.FORMAT_MSWORD_BY_BOOKS;
 		MSWord.createMSWordByBooks();
+
+		outputFormat = Constants.FORMAT_MSEXCEL;
 		MSExcel.createMSExcel();
+
+		outputFormat = Constants.FORMAT_MYBIBLEZONE;
 		MyBibleZone.createMyBibleZone();
+
+		outputFormat = Constants.FORMAT_HTML;
 		HTML.createHTML();
+
+		outputFormat = Constants.FORMAT_JSONBIBLE;
 		JsonBible.createJsonBible();
+
+		outputFormat = Constants.FORMAT_THML;
 		ThML.createThML();
+
+		outputFormat = Constants.FORMAT_THML_SINGLE;
 		ThML.createThMLSingleFile();
+
+		outputFormat = Constants.FORMAT_OSIS;
 		OSIS.createOSIS();
+
+		outputFormat = Constants.FORMAT_ZEFANIAXML;
 		ZefaniaXML.createZefaniaXML();
+
+		outputFormat = Constants.FORMAT_MYSWORD;
 		MySword.createMySword();
+
+		outputFormat = Constants.FORMAT_CSV;
 		CSV.createCSV();
+
+		outputFormat = savedFormat;
 		System.out.println("Export to ALL formats completed.");
 	}
 
