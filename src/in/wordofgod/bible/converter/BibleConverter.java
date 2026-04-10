@@ -121,6 +121,10 @@ public class BibleConverter {
 			MySword.createMySword();
 			break;
 
+		case Constants.FORMAT_MSEXCEL:
+			MSExcel.createMSExcel();
+			break;
+
 		case Constants.FORMAT_ALL:
 			processAll();
 			break;
@@ -140,6 +144,7 @@ public class BibleConverter {
 		TextFiles.createTheWordModuleWithoutHtmlTags();
 		Json.createJson();
 		MSWord.createMSWordByBooks();
+		MSExcel.createMSExcel();
 		MyBibleZone.createMyBibleZone();
 		HTML.createHTML();
 		JsonBible.createJsonBible();
@@ -176,8 +181,25 @@ public class BibleConverter {
 
 	public static void printHelpMessage() {
 		System.out.println("\nHelp on Usage of this program:");
-		System.out.println(
-				"\nSupported formats:\n\t1. TextFiles\n\t2. TextFilesByDirectory\n\t3. JSON\n\t4. SingleTextFile\n\t5. TheWordWithoutHtmlTags\n\t6. NormalizeText\n\t7. CreateLanguagesJson\n\t8. MSWordByBooks\n\t9. MyBibleZone\n\t10. HTML\n\t11. JsonBible\n\t12. ThML\n\t13. ThMLSingle\n\t14. OSIS\n\t15. ZefaniaXML\n\t16. MySword\n\t17. All");
+		System.out.println("\nSupported formats:");
+		System.out.println("\t 1. TextFiles");
+		System.out.println("\t 2. TextFilesByDirectory");
+		System.out.println("\t 3. JSON");
+		System.out.println("\t 4. SingleTextFile");
+		System.out.println("\t 5. TheWordWithoutHtmlTags");
+		System.out.println("\t 6. NormalizeText");
+		System.out.println("\t 7. CreateLanguagesJson");
+		System.out.println("\t 8. MSWordByBooks");
+		System.out.println("\t 9. MyBibleZone");
+		System.out.println("\t10. HTML");
+		System.out.println("\t11. JsonBible");
+		System.out.println("\t12. ThML");
+		System.out.println("\t13. ThMLSingle");
+		System.out.println("\t14. OSIS");
+		System.out.println("\t15. ZefaniaXML");
+		System.out.println("\t16. MySword");
+		System.out.println("\t17. MSExcel");
+		System.out.println("\t18. All");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(
@@ -185,27 +207,5 @@ public class BibleConverter {
 		System.out.println("\nExample 1: java -jar bible-coverter.jar TextFiles C:/taOV.ont C:/taOV-information.ini");
 		System.out.println(
 				"\nExample 2: java -jar bible-coverter.jar TextFilesByDirectory C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 3: java -jar bible-coverter.jar CreateLanguagesJson C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 4: java -jar bible-coverter.jar MSWordByBooks C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 5: java -jar bible-coverter.jar MyBibleZone C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 6: java -jar bible-coverter.jar HTML C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 7: java -jar bible-coverter.jar JsonBible C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 8: java -jar bible-coverter.jar ThML C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 9: java -jar bible-coverter.jar ThMLSingle C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 10: java -jar bible-coverter.jar OSIS C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 11: java -jar bible-coverter.jar ZefaniaXML C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 12: java -jar bible-coverter.jar MySword C:/taOV.ont C:/taOV-information.ini");
-		System.out.println(
-				"\nExample 13: java -jar bible-coverter.jar All C:/taOV.ont C:/taOV-information.ini");
 	}
 }

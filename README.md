@@ -12,6 +12,7 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - **HTML Export**: Generate a fully styled, self-contained website with one page per book, table of contents, font size controls, and responsive design
 - **MyBible.Zone Support**: Generate ready-to-use `.SQLite3` database files for the MyBible.Zone app
 - **MySword Support**: Generate ready-to-use `.bbl.mybible` SQLite3 database files for the MySword app
+- **MS Excel Support**: Generate a structured `.xlsx` workbook with four sheets: info, verses, books, and books_all
 - **Text Normalization**: Advanced text cleaning and normalization for Bible texts
 - **Languages JSON Generation**: Automatically generate language metadata for multiple Bible versions
 - **HTML Tag Removal**: Clean TheWord Bible modules by removing HTML formatting
@@ -38,6 +39,7 @@ This tool processes Bible texts in TheWord format (.ont, .ot, .nt) and converts 
 - OSIS
 - ZefaniaXML
 - MySword
+- MSExcel
 - All
 
 ## Installation
@@ -99,6 +101,10 @@ Output/
 │   └── தமிழ்/
 │       └── TRHE1836/
 │           └── TRHE1836.bbl.mybible
+├── MSExcel/
+│   └── தமிழ்/
+│       └── TRHE1836/
+│           └── TRHE1836.xlsx
 ├── OSIS/
 │   └── தமிழ்/
 │       └── TRHE1836/
@@ -706,6 +712,164 @@ Output/ZefaniaXML/தமிழ்/TRHE1836/
 | `bnumber` | `BookID.getZefID()` (canonical Zefania book number 1–66) |
 | `bname` | `book.getLongName()` |
 | `bsname` | `book.getThreeLetterCode()` or `book.getAbbr()` |
+
+### 16. **MySword**
+Converts Bible text to a [MySword](https://mysword.info) compatible SQLite3 database file (`.bbl.mybible`), ready to be imported directly into the MySword app on Android.
+
+- Output file is named `[ABBR].bbl.mybible` (e.g., `TOV2017.bbl.mybible`)
+- Creates two tables: `Bible` and `Details`
+- **`Details` table** — single metadata row populated with:
+  - `Title` — Bible common name
+  - `Description` — concatenation of common name, publisher, published year, and translator (separated by `. `)
+  - `Abbreviation` — Bible abbreviation
+  - `Comments` — copyright text
+  - `Version` / `VersionDate` — version `1.0` and today's date
+  - `PublishDate` — from bible info
+  - `Publisher` — from bible info
+  - `Author` — translator from bible info
+  - `Creator` — credits BibleConverter
+  - `Language` — ISO language code (e.g. `ta`, `en`)
+  - `RightToLeft` — auto-detected from language code (Arabic, Hebrew, Farsi, Urdu, Syriac, etc.)
+  - `OT` — derived from the source file extension (`.nt` → false, `.ot`/`.ont` → true)
+  - `NT` — derived from the source file extension (`.ot` → false, `.nt`/`.ont` → true)
+  - `Strong` — auto-detected by scanning verse text for `<WH...>` (Hebrew) or `<WG...>` (Greek) tags
+- **`Bible` table** — one row per verse with columns:
+  - `Book` — sequential book number (Genesis = 1, Revelation = 66)
+  - `Chapter` — chapter number
+  - `Verse` — verse number
+  - `Scripture` — verse text
+
+```bash
+java -jar bible-converter.jar MySword /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/MySword/தமிழ்/TRHE1836/
+└── TRHE1836.bbl.mybible
+```
+
+**Details metadata fields:**
+
+| Column | Source |
+|---|---|
+| `Title` | `bible.getCommonName()` |
+| `Description` | `commonName. publishedBy. publishedYear. translatedBy` |
+| `Abbreviation` | `bible.getAbbr()` |
+| `Comments` | `bible.getCopyRight()` |
+| `PublishDate` | `bible.getPublishedYear()` |
+| `Publisher` | `bible.getPublishedBy()` |
+| `Author` | `bible.getTranslatedBy()` |
+| `Creator` | BibleConverter GitHub link |
+| `Language` | `bible.getLanguageCode()` |
+| `RightToLeft` | Auto-detected from language code |
+| `OT` | `bible.isHasOT()` |
+| `NT` | `bible.isHasNT()` |
+| `Strong` | Auto-detected from verse text tags |
+
+**Right-to-left languages detected automatically:**
+
+| Language | Code |
+|---|---|
+| Arabic | `ar` |
+| Hebrew | `he` |
+| Persian / Farsi | `fa` |
+| Urdu | `ur` |
+| Syriac | `syr` |
+| Dhivehi (Thaana) | `dv` |
+| Yiddish | `yi` |
+
+### 17. **MSExcel**
+Converts Bible text to a Microsoft Excel (`.xlsx`) workbook — a single file containing four structured sheets, useful for data analysis, searching, filtering, and importing into other tools.
+
+- Output file is named `[ABBR].xlsx` (e.g., `TOV2017.xlsx`)
+- All sheets have a styled header row (white text on dark blue background) and thin cell borders
+- Number columns are centre-aligned; the Scripture column wraps text
+
+```bash
+java -jar bible-converter.jar MSExcel /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+**Output structure:**
+```
+Output/MSExcel/தமிழ்/TRHE1836/
+└── TRHE1836.xlsx
+```
+
+**Sheet 1 — `info`**
+
+Key/value metadata about the Bible translation.
+
+| Column | Description |
+|---|---|
+| Property | Metadata field name (bold, grey background) |
+| Value | Metadata field value |
+
+Rows include: Abbreviation, Common Name, Short Name, Long Name, Long English Name, Language Code, Published Year, Published By, Translated By, Copyright, Additional Information, Has OT, Has NT, Total Books, Total Chapters, Total Verses, Total Words, Total Unique Words, Generated Date, Generated By.
+
+**Sheet 2 — `verses`**
+
+Every verse in the Bible. Header row is frozen.
+
+| Column | Description |
+|---|---|
+| Book No | Sequential book number (1–66) |
+| Book Name | Localised book name |
+| Chapter | Chapter number |
+| Verse | Verse number |
+| Scripture | Verse text (wrap-text enabled) |
+
+**Sheet 3 — `books`**
+
+One row per book that is present in this Bible. Header row is frozen.
+
+| Column | Description |
+|---|---|
+| Book No | Sequential book number (1–66) |
+| OSIS ID | Canonical OSIS book identifier (e.g. `Gen`, `Matt`) |
+| Short Name | Localised short book name |
+| Long Name | Localised full book name |
+| English Name | English book name |
+| Chapters | Number of chapters in this Bible |
+
+**Sheet 4 — `books_all`**
+
+All 66 canonical books (Genesis–Revelation), regardless of whether they are present in this Bible. Header row is frozen.
+
+| Column | Description |
+|---|---|
+| Book No | Sequential book number (1–66) |
+| OSIS ID | Canonical OSIS book identifier |
+| English Name | Standard English book name |
+| Testament | `OT` or `NT` |
+| Present | `Yes` (green) if in this Bible, `No` (tan) if absent |
+| Chapters | Number of chapters (0 if absent) |
+
+### 18. **All**
+Exports the Bible to **all supported formats** in a single command. This is equivalent to running every format one after the other. The two utility-only formats (`NormalizeText` and `CreateLanguagesJson`) are excluded.
+
+**Formats included:**
+- TextFiles
+- SingleTextFile
+- TextFilesByDirectory
+- TheWordWithoutHtmlTags
+- JSON
+- MSWordByBooks
+- MSExcel
+- MyBibleZone
+- HTML
+- JsonBible
+- ThML
+- ThMLSingle
+- OSIS
+- ZefaniaXML
+- MySword
+
+```bash
+java -jar bible-converter.jar All /path/to/taOV.ont /path/to/taOV-information.ini
+```
+
+All output is written to the respective format sub-folders under `Output/` as described in the output directory structure above.
 
 ## Supported Languages
 
