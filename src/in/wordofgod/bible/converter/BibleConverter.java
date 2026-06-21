@@ -85,6 +85,10 @@ public class BibleConverter {
 			CreateLanguagesJson.process();
 			break;
 
+		case Constants.FORMAT_MSWORD:
+			MSWord.createMSWord();
+			break;
+
 		case Constants.FORMAT_MSWORD_BY_BOOKS:
 			MSWord.createMSWordByBooks();
 			break;
@@ -159,6 +163,9 @@ public class BibleConverter {
 		outputFormat = Constants.FORMAT_JSON;
 		Json.createJson();
 
+		outputFormat = Constants.FORMAT_MSWORD;
+		MSWord.createMSWord();
+
 		outputFormat = Constants.FORMAT_MSWORD_BY_BOOKS;
 		MSWord.createMSWordByBooks();
 
@@ -229,18 +236,19 @@ public class BibleConverter {
 		System.out.println("\t 5. TheWordWithoutHtmlTags");
 		System.out.println("\t 6. NormalizeText");
 		System.out.println("\t 7. CreateLanguagesJson");
-		System.out.println("\t 8. MSWordByBooks");
-		System.out.println("\t 9. MyBibleZone");
-		System.out.println("\t10. HTML");
-		System.out.println("\t11. JsonBible");
-		System.out.println("\t12. ThML");
-		System.out.println("\t13. ThMLSingle");
-		System.out.println("\t14. OSIS");
-		System.out.println("\t15. ZefaniaXML");
-		System.out.println("\t16. MySword");
-		System.out.println("\t17. MSExcel");
-		System.out.println("\t18. CSV");
-		System.out.println("\t19. All");
+		System.out.println("\t 8. MSWord");
+		System.out.println("\t 9. MSWordByBooks");
+		System.out.println("\t10. MyBibleZone");
+		System.out.println("\t11. HTML");
+		System.out.println("\t12. JsonBible");
+		System.out.println("\t13. ThML");
+		System.out.println("\t14. ThMLSingle");
+		System.out.println("\t15. OSIS");
+		System.out.println("\t16. ZefaniaXML");
+		System.out.println("\t17. MySword");
+		System.out.println("\t18. MSExcel");
+		System.out.println("\t19. CSV");
+		System.out.println("\t20. All");
 		System.out.println(
 				"\nSyntax to run this program:\njava -jar bible-coverter.jar [OUTPUT-FORMAT] [SOURCE-BIBLE-TEXT-FILE-PATH] [BIBLE-INFORMATION-FILE-PATH]");
 		System.out.println(

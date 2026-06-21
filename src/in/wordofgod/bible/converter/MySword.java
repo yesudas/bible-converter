@@ -276,6 +276,11 @@ public class MySword {
 								+ "' in " + book.getLongName() + " " + chapterNum);
 						continue;
 					}
+					
+					verseText = applyStyleForEmphasisWords(verseText);
+					
+					verseText = applyStyleForNotes(verseText);
+					
 					// column order: Book, Chapter, Verse, Scripture
 					table.insert((long) bookNumber, (long) chapterNum, (long) verseNum, verseText);
 					totalVerses++;
@@ -288,6 +293,16 @@ public class MySword {
 	// -------------------------------------------------------------------------
 	// Helpers
 	// -------------------------------------------------------------------------
+
+	private static String applyStyleForNotes(String verseText) {
+		verseText = verseText.replaceAll("<n>", "<font color=\"grey\">").replaceAll("</n>", "</font>");
+		return verseText;
+	}
+
+	private static String applyStyleForEmphasisWords(String verseText) {
+		verseText = verseText.replaceAll("<e>", "<font color=\"#3A7DCC\">").replaceAll("</e>", "</font>");
+		return verseText;
+	}
 
 	private static int getBookNumber(Book book) {
 		if (book.getId() != null) {

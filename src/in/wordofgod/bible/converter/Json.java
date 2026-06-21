@@ -9,6 +9,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,8 +80,14 @@ public class Json {
 					chapter.setChapter("" + chapterCount);
 				}
 				List<VerseJson> verses = new ArrayList<>();
+				String tempVerse = null;
 				for (Verse verse : chapter.getVerses()) {
-					verses.add(new VerseJson(Integer.valueOf(verse.getNumber()), verse.getUnParsedText()));
+					tempVerse = verse.getUnParsedText();
+					
+					tempVerse = applyStyleForEmphasisWords(tempVerse);
+					tempVerse = applyStyleForNotes(tempVerse);
+					
+					verses.add(new VerseJson(Integer.valueOf(verse.getNumber()), tempVerse));
 				}
 				String filePath = bookDir + File.separator + chapter.getChapter() + ".json";
 				try {
@@ -100,6 +108,32 @@ public class Json {
 
 		System.out.println("Json Creation Completed...");
 		System.out.println("Results are saved in the directory: " + BibleConverter.outputPath);
+	}
+
+	private static String applyStyleForNotes(String verseText) {
+		return wrapWordsWithSpan(verseText, "n", "notes");
+	}
+
+	private static String applyStyleForEmphasisWords(String verseText) {
+		return wrapWordsWithSpan(verseText, "e", "emphasis");
+	}
+
+	private static String wrapWordsWithSpan(String verseText, String tag, String spanClass) {
+		Pattern pattern = Pattern.compile("<" + tag + ">(.*?)</" + tag + ">");
+		Matcher matcher = pattern.matcher(verseText);
+		StringBuffer sb = new StringBuffer();
+		while (matcher.find()) {
+			String inner = matcher.group(1).trim();
+			String[] words = inner.isEmpty() ? new String[0] : inner.split("\\s+");
+			StringBuilder replacement = new StringBuilder();
+			for (int i = 0; i < words.length; i++) {
+				if (i > 0) replacement.append(" ");
+				replacement.append("<span class=\"").append(spanClass).append("\">").append(words[i]).append("</span>");
+			}
+			matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement.toString()));
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
 	}
 
 	private static void createDir(String dirPath) {

@@ -1,0 +1,3 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS books(book INT primary key, name TEXT);
+COMMIT;
